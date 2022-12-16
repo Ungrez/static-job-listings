@@ -1,0 +1,19 @@
+@import url("./css/reset.css");
+
+#app_nav {
+  background-image: url("./assets/bg-header-mobile.svg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-color: hsl(180, 29%, 50%);
+  width: 100%;
+  height: 23vh;
+}
+#app_box_list {
+  width: 100%;
+  min-height: calc(100vh - 23vh);
+  background-color: hsl(180, 52%, 96%);
+}
+body {
+  position: relative;
+  min-height: 100vh;
+}
