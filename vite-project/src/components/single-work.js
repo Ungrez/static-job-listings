@@ -1,45 +1,62 @@
 import { LitElement, html, css } from "lit";
+import { singleWorkCss } from "../templates/templates";
 
 export class SingleWork extends LitElement {
   static get properties() {
     return {
-      value: Object,
+      value: { type: Object },
     };
   }
 
-  static styles = css`
-    div#work {
-      display: flex;
-      flex-direction: column;
-      background-color: white;
-      height: 250px;
-      width: 100%;
-      border-radius: 5px;
-      border-left: 5px solid hsl(180, 29%, 50%);
-      box-shadow: 0px 30px 33px -25px hsla(180, 29%, 50%, 0.5);
-    }
-    h1 {
-      margin: 0;
-    }
-  `;
+  static styles = singleWorkCss;
 
   constructor() {
     super();
     this.value = {};
   }
+
+  firstUpdated() {
+    const buttons = [...this.shadowRoot.querySelectorAll("#category_btn")];
+    for (const button of buttons) {
+      button.addEventListener("click", (e) =>
+        this.searchMatched(e.target.innerText)
+      );
+    }
+  }
+
+  searchMatched(matched) {}
+
   render() {
-    console.log(this.value);
+    let technologies = this.value.languages;
+    let tools = this.value.tools;
+    let categories = [this.value.role, this.value.level, ...tools];
+    const categories_array = categories.concat(technologies);
+
     return html`
-      <div id="work">
-        <p>${this.value.company}</p>
-        ${this.value.new ? html`<p>NEW!</p> ` : ""}
-        ${this.value.featured ? html`<p>FEATURED</p> ` : ""}
+      <div id="work" class="${this.value.featured ? "featured" : ""}">
+        <img src=${this.value.logo} alt=${this.value.company} />
+        <div id="work_company">
+          <p>${this.value.company}</p>
+          ${this.value.new
+            ? html`<button id="work_new"><p>NEW!</p></button> `
+            : ""}
+          ${this.value.featured
+            ? html`<button id="work_featured">FEATURED</button> `
+            : ""}
+        </div>
         <p>${this.value.position}</p>
         <ul>
           <li>${this.value.postedAt}</li>
           <li>${this.value.contract}</li>
           <li>${this.value.location}</li>
         </ul>
+        <hr />
+        <div id="work_category">
+          ${categories_array.map(
+            (item, index) =>
+              html`<button id="category_btn" key=${index}>${item}</button>`
+          )}
+        </div>
       </div>
     `;
   }
