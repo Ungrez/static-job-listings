@@ -94,3 +94,10 @@ export const workListCss = css`
     background-color: hsl(180, 52%, 96%);
   }
 `;
+export const filterInputCss = css`
+  div#filter {
+    min-height: 200px;
+    width: 100%;
+    background-color: gray;
+  }
+`;

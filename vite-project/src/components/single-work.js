@@ -27,28 +27,38 @@ export class SingleWork extends LitElement {
   searchMatched(matched) {}
 
   render() {
-    let technologies = this.value.languages;
+    let {
+      featured,
+      company,
+      logo,
+      position,
+      postedAt,
+      contract,
+      location,
+      languages,
+      level,
+      role,
+    } = this.value;
+    let technologies = languages;
     let tools = this.value.tools;
-    let categories = [this.value.role, this.value.level, ...tools];
+    let categories = [role, level, ...tools];
     const categories_array = categories.concat(technologies);
 
     return html`
-      <div id="work" class="${this.value.featured ? "featured" : ""}">
-        <img src=${this.value.logo} alt=${this.value.company} />
+      <div id="work" class="${featured ? "featured" : ""}">
+        <img src=${logo} alt=${company} />
         <div id="work_company">
-          <p>${this.value.company}</p>
+          <p>${company}</p>
           ${this.value.new
             ? html`<button id="work_new"><p>NEW!</p></button> `
             : ""}
-          ${this.value.featured
-            ? html`<button id="work_featured">FEATURED</button> `
-            : ""}
+          ${featured ? html`<button id="work_featured">FEATURED</button> ` : ""}
         </div>
-        <p>${this.value.position}</p>
+        <p>${position}</p>
         <ul>
-          <li>${this.value.postedAt}</li>
-          <li>${this.value.contract}</li>
-          <li>${this.value.location}</li>
+          <li>${postedAt}</li>
+          <li>${contract}</li>
+          <li>${location}</li>
         </ul>
         <hr />
         <div id="work_category">
